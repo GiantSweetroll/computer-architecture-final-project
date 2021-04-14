@@ -21,7 +21,6 @@ input card;
 input PIN;
 input choice;
 input [1:0] amount;
-reg reset;
 
 // wire amount[1:0];
 output W_50000;
@@ -102,7 +101,6 @@ always @(posedge clock)
 begin
     if(reset) begin
         state <= START;
-        reset <= 1'b0;
 
         D_50000 <= 1'b0;
         D_100000 <= 1'b0;
