@@ -17,24 +17,29 @@ wire D_100000;
 wire D_200000;
 
 initial begin
-    clock = 0;
-    reset = 1;
-    card = 0;
-    PIN = 0;
-    choice = 0;
-    amount = 0;
+    clock <= 0;
+    PIN <= 0;
+    card <= 0;
+    #20
+    card <= 1'b1;
+    #20
+    PIN = 1;
+    #20
+    choice = 1;
+    #20
+    amount = 2'b01;
 end
 
 always 
     #10 clock = ~clock;
     
 ATM_dut dut(
-    clock,
     reset,
     card,
     PIN,
-    choice,
+    clock,
     amount,
+    choice,
     W_50000,
     W_100000,
     W_200000,

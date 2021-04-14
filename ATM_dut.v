@@ -51,11 +51,21 @@ parameter [2:0] MENU = 3'b010;
 parameter [2:0] DEPOSIT = 3'b011;
 parameter [2:0] WITHDRAW = 3'b100;
 
+initial begin
+    state <= START;
+    next_state <= START;
+end
+
+// always @(*) 
 always @(state or PIN or card or choice or amount) 
 begin
+    $display("Input handling");
+    $display(card);
     case(state)
         START:
+            // $display("Does it even go here 2?");
             if(card == 1'b1) begin
+                
                 next_state <= CARD_INSERTED;
             end
         CARD_INSERTED:
@@ -74,32 +84,38 @@ begin
                 next_state <= WITHDRAW;
             end
         DEPOSIT:
-            if(amount == 2'b01) begin
+            if(amount == FIFTY) begin
                 D_50000  <= 1'b1;
+                reset <= 1'b1;
             end
             else if(amount == HUNDRED) begin
                 D_100000 <= 1'b1;
+                reset <= 1'b1;
             end
             else if(amount == TWO_HUNDRED) begin
                 D_200000 <= 1'b1;
+                reset <= 1'b1;
             end
         WITHDRAW:
             if(amount == FIFTY) begin
                 W_50000  <= 1'b1;
+                reset <= 1'b1;
             end
             else if(amount == HUNDRED) begin
                 W_100000 <= 1'b1;
+                reset <= 1'b1;
             end
             else if(amount == TWO_HUNDRED) begin
                 W_200000 <= 1'b1;
+                reset <= 1'b1;
             end
-        default: next_state = START;
     endcase
 end
 
 always @(posedge clock)
 begin
-    if(reset) begin
+    $display("Posedge clock");
+    if(reset == 0) begin
         state <= START;
 
         D_50000 <= 1'b0;
