@@ -31,6 +31,8 @@ output D_50000;
 output D_100000;
 output D_200000;
 
+reg restart;
+
 reg W_50000;
 reg W_100000;
 reg W_200000;
@@ -86,28 +88,28 @@ begin
         DEPOSIT:
             if(amount == FIFTY) begin
                 D_50000  <= 1'b1;
-                reset <= 1'b1;
+                restart <= 1'b1;
             end
             else if(amount == HUNDRED) begin
                 D_100000 <= 1'b1;
-                reset <= 1'b1;
+                restart <= 1'b1;
             end
             else if(amount == TWO_HUNDRED) begin
                 D_200000 <= 1'b1;
-                reset <= 1'b1;
+                restart <= 1'b1;
             end
         WITHDRAW:
             if(amount == FIFTY) begin
                 W_50000  <= 1'b1;
-                reset <= 1'b1;
+                restart <= 1'b1;
             end
             else if(amount == HUNDRED) begin
                 W_100000 <= 1'b1;
-                reset <= 1'b1;
+                restart <= 1'b1;
             end
             else if(amount == TWO_HUNDRED) begin
                 W_200000 <= 1'b1;
-                reset <= 1'b1;
+                restart <= 1'b1;
             end
     endcase
 end
